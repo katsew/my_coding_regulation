@@ -6,30 +6,39 @@
   ```
     <meta charset="UTF-8">
   ```
+  
 ・doctypeはhtml5で宣言すること
   ```
     <!DOCTYPE html>
   ```
-・img要素はalt属性を省略しない。省略可能な場合はalt=""とする
-・h1要素は1ページに複数配置しないこと
-・インデントはスペース2つですること
+  
+・img要素はalt属性を省略しない。省略可能な場合はalt=""とする  
+
+・h1要素は1ページに複数配置しないこと  
+
+・インデントはスペース2つですること  
+
 ・インラインにJavaScript, CSSを展開しないこと
   ```
     NG: <style></style>, <script></script>
   ```
+
 ・属性指定はダブルクオーテーション("")をつかうこと
   ```
     OK: <div class="pull-left"></div>
     NG: <div class='pull-left'></div>
   ```
+
 ・JavaScriptをonclickなどで呼び出さないこと
   ```
     NG: <a href="javascript:void(0);" onclick="func()"></a>
   ```
+
 ・a要素でhref属性を省略しないこと。JavaScriptで処理をする場合は "#" を入れておくこと
   ```
     OK: <a href="#">hoge</a>
   ```
+
 ・自作した.jsファイルはbody要素を閉じる直前に配置すること
   ```
     (...<script src="hoge.js"></script></body>)
@@ -46,10 +55,13 @@ eg.
   ```
 
 ### 単語の区切りは半角ハイフン(-)にすること
-eg.  
-.container-inner
-.container-inner-border
-
+eg.
+  ```
+    .container-inner
+      width: 960px;
+    .container-inner-border
+      border: 1px solid #ccc;
+  ```
 ### モジュール設計をする
 パーツ化することを意識したコーディングをする  
 eg.  
@@ -87,8 +99,8 @@ CSS:
 
 
 ### hotfixなcssは別途分けておく
-緊急対応したCSS(sass)ファイルは別途分けておいて、最後に読み込む  
-eg.
+緊急対応したCSS(sass)ファイルは別途分けておいて、最後に読み込む。  
+eg.  
 CSS:  
   ```
   /* fixme.css (sass) */
