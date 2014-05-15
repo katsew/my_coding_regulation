@@ -46,13 +46,13 @@ eg.
   ```
 
 ### 単語の区切りは半角ハイフン(-)にすること
-eg.
+eg.  
 .container-inner
 .container-inner-border
 
 ### モジュール設計をする
-パーツ化することを意識したコーディングをする
-eg.
+パーツ化することを意識したコーディングをする  
+eg.  
 HTML:
   ```
     <div class="module">
@@ -74,23 +74,29 @@ CSS:
   ```
 
 ### インデントを浅く保つ
-インデントは2~3までとして、それ以上になる場合は、別でモジュールにすることを考える。
-ただし、hoverなどの擬似クラスはこの限りでない
-.module
-  .module-item
-    &> a
-      &:hover
-      &:active
-      &:visited
+インデントは2~3までとして、それ以上になる場合は、別でモジュールにすることを考える。  
+ただし、hoverなどの擬似クラスはこの限りでない  
+  ```
+  .module
+    .module-item
+      &> a
+        &:hover
+        &:active
+        &:visited
+  ```
 
 
 ### hotfixなcssは別途分けておく
-緊急対応したCSS(sass)ファイルは別途分けておいて、最後に読み込む
+緊急対応したCSS(sass)ファイルは別途分けておいて、最後に読み込む  
 eg.
-
-/* fixme.css (sass) */
-.change-font-size
-  font-size: 20px !important;
-
-<link rel="stylesheet" href="/css/hoge.css">
-<link rel="stylesheet" href="/css/fixme.css">
+CSS:  
+  ```
+  /* fixme.css (sass) */
+  .change-font-size
+    font-size: 20px !important;
+  ```
+HTML:  
+  ```
+    <link rel="stylesheet" href="/css/hoge.css">
+    <link rel="stylesheet" href="/css/fixme.css">
+  ```
