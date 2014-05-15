@@ -30,7 +30,7 @@
   ```
     OK: <a href="#">hoge</a>
   ```
-・自作した.jsファイルは</body>の直前に配置すること
+・自作した.jsファイルは"</body>"の直前に配置すること
   ```
     (...<script src="hoge.js"></script></body>)
   ```
