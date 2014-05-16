@@ -52,11 +52,50 @@
     (...<script src="hoge.js"></script></body>)
   ```
 
+## JavaScript
+・ファイル名は単語の頭を大文字にすること
+  ```
+    ExampleHoge.js
+  ```
+・インラインで展開しないこと
+・変数宣言には必ずvar命令をつけること
+・文末は必ずセミコロン(;)をつけること
+  ```
+    var i = 0;
+  ```
+・定数はすべて大文字で記述し、単語間はアンダースコアでつなぐこと
+  ```
+    var CONST_HOGE = "This is Sample.";
+  ```
+・関数はキャメルケースで記述すること  
+  ```
+    getMessageFromServer();
+  ```
+・値の比較は厳格に行うこと
+  ```
+    OK: if( "1" === 1) {}
+    NG: if( "1" == 1) {}
+  ```
+・eval()を使用しないこと  
+・空の配列, オブジェクトの生成に（特別な理由がない限り）new演算子を使わないこと
+  ```
+    OK: 
+      var obj = {};
+      var arr = [];
+    NG:
+      var obj = new Object();
+      var arr = new Array();
+  ```
+・意図がわかるようにコメントを記述すること
+
 
 ## CSS (SASS)
 
-### スタイルの指定にidを使わないこと
-eg.
+・ファイル名はハイフン(-)つなぎにすること
+  ```
+    example-sample.css (.sass)
+  ```
+・スタイルの指定にidを使わないこと
   ```
   OK:
     .klass
@@ -66,18 +105,19 @@ eg.
       font-size: 14px;
   ```
 
-### 単語の区切りは半角ハイフン(-)にすること
-eg.
+・単語の区切りは半角ハイフン(-)にすること
   ```
     .container-inner
-      width: 960px;
     .container-inner-border
-      border: 1px solid #ccc;
   ```
 
-### モジュール設計をすること
+・IEの条件付きコメントを使用しないこと
+  ```
+    NG: [if IE], [if IE8]...
+  ```
+
+・モジュール設計をすること  
 パーツ化することを目的にコーディングをすること  
-eg.  
 HTML:
   ```
     <div class="module">
@@ -98,10 +138,9 @@ CSS:
       font-size: 14px;
   ```
 
-### モジュール外からCSSを適応しないこと
+・モジュール外からCSSを適応しないこと  
 モジュールのみにスタイルを適応すること  
 ただし、JavaScriptの処理が入る場合この限りでない（*後述）。  
-eg.  
 HTML:  
   ```
     <div class="container">
@@ -126,9 +165,8 @@ CSS:
         font-size: 14px;
   ```
 
-### JavaScriptによるレイアウト変更はレイアウト用のCSSを適応すること
+・JavaScriptによるレイアウト変更はレイアウト用のCSSを適応すること。  
 JavaScriptによるレイアウト変更（カラム左右を変更など）には専用のCSSを作成し、適応すること。  
-eg.  
 HTML:  
   ```
     <div class="container l-switched" id="switchPane">
@@ -157,10 +195,9 @@ CSS:
         float: left;
   ```
 
-### コメントを記述すること
+・コメントを記述すること  
 JavaScriptや複雑なレイアウトの処理が入る場合や、緊急対応を実施した場合は、  
 意図が分かりやすいようにコメントアウトで説明すること。  
-eg.
   ```
     /* JavaScriptによるカラム制御
       .l-switchedが親要素に付いているときはカラムを左右入れ替える
@@ -172,9 +209,8 @@ eg.
         float: left;
   ```
 
-### インデントを浅く保つこと
+・インデントを浅く保つこと  
 インデントは2~3までとして、それ以上になる場合は、別モジュールにすることを考える。  
-eg.  
   ```
     OK:
     .module
@@ -206,7 +242,7 @@ eg.
             color: purple;
   ```
 
-### 分けたモジュールが2ページ以上で使われる場合は、@importをつかって呼び出すこと
+・分けたモジュールが2ページ以上で使われる場合は、@importをつかって呼び出すこと
   ```
     /* common.css (sass) */
     .header
@@ -221,9 +257,8 @@ eg.
       height: 100px;
   ```
 
-### 緊急対応用のCSSは別途分けておく
+・緊急対応用のCSSは別途分けておくこと  
 緊急対応したCSS(sass)ファイルは別途分けておいて、StyleSheet読み込みの最後に読み込む。  
-eg.  
 CSS:  
   ```
   /* fixme.css (sass) */
