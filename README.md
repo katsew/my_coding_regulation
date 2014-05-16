@@ -62,7 +62,8 @@ eg.
     .container-inner-border
       border: 1px solid #ccc;
   ```
-### モジュール設計をする
+
+### モジュール設計をすること
 パーツ化することを意識したコーディングをする  
 eg.  
 HTML:
@@ -85,18 +86,70 @@ CSS:
       font-size: 14px;
   ```
 
-### インデントを浅く保つ
-インデントは2~3までとして、それ以上になる場合は、別でモジュールにすることを考える。  
-ただし、hoverなどの擬似クラスはこの限りでない  
+### モジュール外からCSSを適応しないこと
+緊急の場合を除き、モジュールのみでレイアウトを完了すること
+eg.  
+HTML:  
   ```
-  .module
-    .module-item
-      &> a
-        &:hover
-        &:active
-        &:visited
+    <div class="container">
+      <div class="module">
+        <p class="module-text"></p>
+        <a href="#" class="module-link"></a>
+      </div>
+    </div>
+  ```
+CSS:
+  ```
+    NG
+      .container .module
+        width: 320px;
+      .container .module .module-text
+        font-size: 14px;
+    OK
+      .module
+        width: 320px;
+      .module-text
+        font-size: 14px;
   ```
 
+### インデントを浅く保つこと
+インデントは2~3までとして、それ以上になる場合は、別モジュールにすることを考える。  
+eg.  
+CSS
+  ```
+    NG:
+    .module
+      width: 320px;
+      .module-item
+        float: left;
+        &> a
+          text-decoration: none;
+          &:hover
+            text-decoration: underline;
+          &:active
+            text-decoration: none;
+          &:visited
+            text-decoration: none;
+            color: purple;
+    OK:
+    .module
+      width: 320px;
+      .module-item
+        float: left;
+        
+     .module-link
+        text-decoration: none;
+        &:hover
+          text-decoration: underline;
+        &:active
+          text-decoration: none;
+        &:visited
+          text-decoration: none;
+          color: purple;
+  ```
+
+### 分けたモジュールが2ページ以上で使われる場合は、@importをつかって呼び出すこと
+  
 
 ### hotfixなcssは別途分けておく
 緊急対応したCSS(sass)ファイルは別途分けておいて、最後に読み込む。  
