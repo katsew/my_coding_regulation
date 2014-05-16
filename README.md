@@ -52,6 +52,13 @@
   ```
 
 ## JavaScript
+
+・処理がひとつの要素に対するものであればidを指定し、複数の要素に対して  
+処理する場合はclassにjs-の接頭辞のついたクラスを指定し、明示的にすること。
+  ```
+    $('#modal').fadeIn(800);
+    $('.js-colored-red').addClass('is-colored-red');
+  ```
 ・ファイル名は単語の頭を大文字にすること
   ```
     ExampleHoge.js
