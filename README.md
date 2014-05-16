@@ -13,6 +13,13 @@
   ```
   
 ・img要素はalt属性を省略しない。省略可能な場合はalt=""とする  
+  ```
+    <img src="/img/example.png" alt="サンプル用の画像です">
+  ```
+  ```
+    省略可能な場合
+    <img src="/img/example.png" alt="">
+  ```
 
 ・h1要素は1ページに複数配置しないこと  
 
@@ -37,6 +44,7 @@
 ・a要素でhref属性を省略しないこと。JavaScriptで処理をする場合は "#" を入れておくこと
   ```
     OK: <a href="#">hoge</a>
+    NG: <a href="">hoge</a>
   ```
 
 ・自作した.jsファイルはbody要素を閉じる直前に配置すること
@@ -50,6 +58,10 @@
 ### スタイルの指定にidを使わないこと
 eg.
   ```
+  OK:
+    .klass
+      font-size: 14px;
+  NG:
     #klass
       font-size: 14px;
   ```
@@ -64,7 +76,7 @@ eg.
   ```
 
 ### モジュール設計をすること
-パーツ化することを意識したコーディングをする  
+パーツ化することを目的にコーディングをすること  
 eg.  
 HTML:
   ```
@@ -87,7 +99,8 @@ CSS:
   ```
 
 ### モジュール外からCSSを適応しないこと
-緊急の場合を除き、モジュールのみでレイアウトを完了すること
+モジュールのみにスタイルを適応すること  
+ただし、JavaScriptの処理が入る場合この限りでない（*後述）。  
 eg.  
 HTML:  
   ```
@@ -100,23 +113,83 @@ HTML:
   ```
 CSS:
   ```
-    NG
-      .container .module
-        width: 320px;
-      .container .module .module-text
-        font-size: 14px;
     OK
       .module
         width: 320px;
       .module-text
         font-size: 14px;
+    NG
+      .container > .module
+        float: left;
+        width: 320px;
+      .container .module .module-text
+        font-size: 14px;
+  ```
+
+### JavaScriptによるレイアウト変更はレイアウト用のCSSを適応すること
+JavaScriptによるレイアウト変更（カラム左右を変更など）には専用のCSSを作成し、適応すること。  
+eg.  
+HTML:  
+  ```
+    <div class="container l-switched" id="switchPane">
+      <div class="module-a">
+        <p class="module-a-text"></p>
+        <a href="#" class="module-a-link"></a>
+      </div>
+      <div class="module-b">
+        <p class="module-b-text"></p>
+        <a href="#" class="module-b-link"></a>
+      </div>
+    </div>
+  ```
+CSS:
+  ```
+    .module-a
+      float: left;
+    .module-b
+      float: right;
+      
+    /* 左右カラム変更用 .l-switched */
+    .l-switched
+      .module-a
+        float: right;
+      .module-b
+        float: left;
+  ```
+
+### コメントを記述すること
+JavaScriptや複雑なレイアウトの処理が入る場合や、緊急対応を実施した場合は、  
+意図が分かりやすいようにコメントアウトで説明すること。  
+eg.
+  ```
+    /* JavaScriptによるカラム制御
+      .l-switchedが親要素に付いているときはカラムを左右入れ替える
+    */
+    .l-switched
+      .module-a
+        float: right;
+      .module-b
+        float: left;
   ```
 
 ### インデントを浅く保つこと
 インデントは2~3までとして、それ以上になる場合は、別モジュールにすることを考える。  
 eg.  
-CSS
   ```
+    OK:
+    .module
+      width: 320px;
+      .module-item
+        float: left;
+   .link-module
+      text-decoration: none;
+      &:hover
+        text-decoration: underline;
+      &:active
+        text-decoration: none;
+      &:visited
+        text-decoration: none;
+        color: purple;
     NG:
     .module
       width: 320px;
@@ -131,28 +204,25 @@ CSS
           &:visited
             text-decoration: none;
             color: purple;
-    OK:
-    .module
-      width: 320px;
-      .module-item
-        float: left;
-        
-     .module-link
-        text-decoration: none;
-        &:hover
-          text-decoration: underline;
-        &:active
-          text-decoration: none;
-        &:visited
-          text-decoration: none;
-          color: purple;
   ```
 
 ### 分けたモジュールが2ページ以上で使われる場合は、@importをつかって呼び出すこと
-  
+  ```
+    /* common.css (sass) */
+    .header
+      width: 960px;
+      height: 100px;
+    
+    /* example.css */
+    @import "common"
+    
+    .example
+      width: 320px;
+      height: 100px;
+  ```
 
-### hotfixなcssは別途分けておく
-緊急対応したCSS(sass)ファイルは別途分けておいて、最後に読み込む。  
+### 緊急対応用のCSSは別途分けておく
+緊急対応したCSS(sass)ファイルは別途分けておいて、StyleSheet読み込みの最後に読み込む。  
 eg.  
 CSS:  
   ```
@@ -162,6 +232,7 @@ CSS:
   ```
 HTML:  
   ```
-    <link rel="stylesheet" href="/css/hoge.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/page.css">
     <link rel="stylesheet" href="/css/fixme.css">
   ```
