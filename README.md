@@ -84,8 +84,8 @@
   ```
 ・値の比較は厳格に行うこと
   ```
-    OK: if( '1' === 1) {} false
-    NG: if( '1' == 1) {} true
+    OK: if( '1' === 1) {} // This returns false
+    NG: if( '1' == 1) {}  // This returns true
   ```
 ・eval()を使用しないこと  
 ・空の配列, オブジェクトの生成に（特別な理由がない限り）new演算子を使わないこと
